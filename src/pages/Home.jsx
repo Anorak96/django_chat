@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import api from '../api'
+import NavBar from './NavBar'
+import Chats from './Chats'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     
@@ -9,7 +12,6 @@ const Home = () => {
         api.get('/api/chat/rooms')
         .then(res => {
             setChats(res.data)
-            console.log(res.data);
         })
         .catch(err => {
             console.log(err.message);
@@ -18,11 +20,10 @@ const Home = () => {
 
     return (
         <div>
-            {chats.map((chat) => {
-                // <button><a href={`/room/${chat.id}`}>{chat.name}</a></button>
-                {chat.name}
+            <NavBar />
+            {chats.map((chat, index) => {
+                return(<Link to={`/room/${chat.id}`}><Chats chat={chat} key={chat.id} /></Link>)
             })}
-            
         </div>
     )
 }

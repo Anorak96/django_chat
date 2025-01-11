@@ -17,16 +17,16 @@ const ChatPage = () => {
 	const [user, setUser] = useState()
 
     useEffect(function(){
-		api.get(`/api/chat/room/`)
+		api.get(`/api/chat/room/${room_uuid}/messages`)
 		.then(res => {
-			setMessages(res.data.messages)
+			setMessages(res.data)
 		})
 		.catch(err => {
 			console.log(err.message);
 		})
 
 		// Get participants
-		api.get(`api/chat/room/${room_uuid}`)
+		api.get(`api/chat/room/${room_uuid}/participants`)
 		.then(res => {
 			setParticipants(res.data)
 		})
@@ -40,7 +40,6 @@ const ChatPage = () => {
 			setUser(res.data.employee.full_name)
 		})
 		.catch(err => {
-			
 			console.log(err.message);
 		})
 		
@@ -64,8 +63,8 @@ const ChatPage = () => {
     return (
         <div className={`${styles.chat}`}>
 			<div  className={`${styles.sidebar}`}>
-                {participants.map((participant, index) => {
-					return(<Sidebar participant={participant.full_name} key={index}/>)
+                {participants.map((participant) => {
+					return(<Sidebar participant={participant.full_name} key={participant.account}/>)
 				})}
             </div>
 			

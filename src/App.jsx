@@ -3,6 +3,7 @@ import Chat from './pages/ChatPage'
 import Login from './pages/Login'
 import { AuthProvider } from './pages/AuthContext'
 import Home from './pages/Home'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 	
